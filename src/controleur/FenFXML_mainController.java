@@ -46,7 +46,7 @@ public class FenFXML_mainController implements Initializable
         {
         for(i=1; i<=15; i++)
         {
-                lab = new Label(String.valueOf(heure));
+                lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
                 lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
                 lab.setMinWidth(300);
                 paneAgenda.add(lab, j, i, 1, 1);
