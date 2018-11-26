@@ -25,7 +25,7 @@ public class FenFXML_mainController implements Initializable
     @FXML
     GridPane paneAgenda;
     /**
-     * Initializes the controller class..
+     * Initializes the controller class.
      */
     @Override
     @SuppressWarnings("empty-statement")
