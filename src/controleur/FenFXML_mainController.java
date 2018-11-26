@@ -34,20 +34,6 @@ public class FenFXML_mainController implements Initializable
         String mot = "f";
         int i, j;
         Label lab;
-        /*        Label lab = new Label("Lundi");
-        paneAgenda.add(lab, 0, 0, 1, 1);
-        lab = new Label("Mardi");
-        paneAgenda.add(lab, 0, 1, 1, 1);
-        lab = new Label("Mercredi");
-        paneAgenda.add(lab, 0, 2, 1, 1);
-        lab = new Label("Jeudi");
-        paneAgenda.add(lab, 0, 3 , 1, 1);
-        lab = new Label("Vendredi");
-        paneAgenda.add(lab, 0, 4 , 1, 1);
-        lab = new Label("Samedi");
-        paneAgenda.add(lab, 0, 5 , 1, 1);
-        lab = new Label("Dimanche");
-        paneAgenda.add(lab, 0, 6 , 1, 1);*/
         for (j=0; j<=2;j++)
         {
         for( i = 0; i<=5; i++)
