@@ -5,14 +5,21 @@
  */
 package controleur;
 
+import java.awt.Dimension;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -31,17 +38,21 @@ public class FenFXML_mainController implements Initializable
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) 
     {
-        String mot = "f";
-        int i, j;
+        String jours[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
+        int i, j, heure;
+        heure = 8;
         Label lab;
-        for (j=0; j<=2;j++)
+        for (j=0; j<=6;j++)
         {
-        for( i = 0; i<=5; i++)
+        for(i=1; i<=15; i++)
         {
-            lab = new Label(mot);
-            paneAgenda.add(lab, j, i, 1, 1);
-            mot += "f";
+                lab = new Label(String.valueOf(heure));
+                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
+                lab.setMinWidth(300);
+                paneAgenda.add(lab, j, i, 1, 1);
+                heure++;
         }
+         heure = 8;
         }
     }
 
