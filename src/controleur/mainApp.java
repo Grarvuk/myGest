@@ -8,6 +8,7 @@ package controleur;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import modele.Association;
+import modele.connBDD;
 
 /**
  *
@@ -27,14 +30,14 @@ public class mainApp extends Application {
     
     private Stage primaryStage;
     private BorderPane rootLayout;
-
+    private ObservableList<Association> lesAssociations = FXCollections.observableArrayList();
 
     
     @Override
     public void start(Stage primaryStage) throws IOException
     {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Coordonnées employés");
+        this.primaryStage.setTitle("Réservation gymnase");
         //lesEmployes = connBDD.getLesEmployes();
         
         try
@@ -44,6 +47,9 @@ public class mainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            lesAssociations = connBDD.getAssociations();
+            //System.out.println("LA VILLE DE CE MACHIN : " + lesAssociations.get(0).getVille());
             
             loader = new FXMLLoader(mainApp.class.getResource("/vue/FenFXML_main.fxml"));
             AnchorPane overviewPage = (AnchorPane)loader.load();

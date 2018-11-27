@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.FenFXML_mainController">
    <children>
-      <GridPane fx:id="paneAgenda" layoutX="124.0" layoutY="86.0" prefHeight="346.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane fx:id="paneAgenda" layoutY="84.0" prefHeight="346.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,5 +32,11 @@
             <Label text="Dimanche" GridPane.columnIndex="6" />
          </children>
       </GridPane>
+      <RadioButton layoutX="21.0" layoutY="14.0" mnemonicParsing="false" text="A">
+         <toggleGroup>
+            <ToggleGroup fx:id="salle" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="57.0" layoutY="14.0" mnemonicParsing="false" text="B" toggleGroup="$salle" />
+      <RadioButton layoutX="92.0" layoutY="14.0" mnemonicParsing="false" text="C" toggleGroup="$salle" />
    </children>
 </AnchorPane>

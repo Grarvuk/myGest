@@ -61,5 +61,48 @@ public class connBDD
         //return lesEmployes;
     }
     
+    public static ObservableList<Association> getAssociations()
+    {
+        Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	String pilote = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/gymnase";	
+        
+        ObservableList<Association> lesAssociations = FXCollections.observableArrayList();
+        
+	try
+	{
+		Class.forName(pilote);
+		conn = DriverManager.getConnection(url,"root","");
+		stmt = (Statement) conn.createStatement();			            
+		rs = stmt.executeQuery("select * from association");	
+                
+                
+		while (rs.next())
+		{
+                    
+                    Association unAssociation = new Association(rs.getString("refAsso"), rs.getString("ville"), rs.getString("adresse"), rs.getString("nomResponsable"));
+                    
+                    lesAssociations.add(unAssociation);
+		}           			            
+		rs.close();
+		stmt.close();
+		conn.close();
+                
+                return lesAssociations;
+	}			        
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	} 
+        return lesAssociations;
+    }
     
 }
