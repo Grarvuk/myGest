@@ -16,50 +16,6 @@ import javafx.collections.ObservableList;
  */
 public class connBDD 
 {
-
-    public static void connexion()
-    {
-        Connection conn;
-	Statement stmt;
-	ResultSet rs;
-	String pilote = "org.gjt.mm.mysql.Driver";
-	String url = "jdbc:mysql://localhost/employe";	
-        
-        //ObservableList<Employe> lesEmployes = FXCollections.observableArrayList();
-        
-	try
-	{
-		Class.forName(pilote);
-		conn = DriverManager.getConnection(url,"root","");
-		stmt = (Statement) conn.createStatement();			            
-		rs = stmt.executeQuery("select * from emp");	
-                
-                
-		while (rs.next())
-		{
-                    
-                    // Employe unEmploye = new Employe(rs.getInt("empo"), rs.getInt("deptno"), rs.getString("ename"), rs.getString("job"), rs.getString("hiredate"), rs.getDouble("sal"));
-                    
-                    //lesEmployes.add(unEmploye);
-		}           			            
-		rs.close();
-		stmt.close();
-		conn.close();
-                
-                //return lesEmployes;
-	}			        
-	catch (SQLException E)
-	{
-            System.out.println("SQLException: " + E.getMessage());
-            System.out.println("SQLState:   " + E.getSQLState());
-            System.out.println("VendorError:  " + E.getErrorCode());
-	}
-	catch (ClassNotFoundException e)
-	{
-            System.out.println("ERREUR Driver " + e.getMessage());
-	} 
-        //return lesEmployes;
-    }
     
     public static ObservableList<Association> getAssociations()
     {

@@ -6,6 +6,9 @@
 package controleur;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableList;
@@ -48,8 +51,12 @@ public class mainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+Calendar cal = Calendar.getInstance();
+System.out.println(dateFormat.format(cal.getTime()));
+            
             lesAssociations = connBDD.getAssociations();
-            //System.out.println("LA VILLE DE CE MACHIN : " + lesAssociations.get(0).getVille());
+            //System.out.println(lesAssociations.get(0).affiche());
             
             loader = new FXMLLoader(mainApp.class.getResource("/vue/FenFXML_main.fxml"));
             AnchorPane overviewPage = (AnchorPane)loader.load();
