@@ -22,8 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import modele.Association;
-import modele.connBDD;
+import modele.*;
 
 /**
  *
@@ -51,12 +50,7 @@ public class mainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-Calendar cal = Calendar.getInstance();
-System.out.println(dateFormat.format(cal.getTime()));
-            
             lesAssociations = connBDD.getAssociations();
-            //System.out.println(lesAssociations.get(0).affiche());
             
             loader = new FXMLLoader(mainApp.class.getResource("/vue/FenFXML_main.fxml"));
             AnchorPane overviewPage = (AnchorPane)loader.load();

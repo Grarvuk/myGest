@@ -27,6 +27,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import modele.Association;
+import modele.Reservation;
+import modele.connBDD;
 /**
  * FXML Controller class
  *
@@ -34,6 +36,8 @@ import modele.Association;
  */
 public class FenFXML_mainController implements Initializable 
 {
+    
+    private ObservableList<Reservation> lesReservations = FXCollections.observableArrayList();
     private mainApp MainApp;
     @FXML
     GridPane paneAgenda;
@@ -45,7 +49,8 @@ public class FenFXML_mainController implements Initializable
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) 
     {
-
+        
+        lesReservations = connBDD.getReservations();
         
         String jours[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         int i, j, heure;
@@ -54,19 +59,21 @@ public class FenFXML_mainController implements Initializable
         int noLab = 0;
         Label lab;
         
-        /*DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();*/
-        
-        // get a calendar instance, which defaults to "now"
-
-        
         for (j=0; j<=6;j++)
         {
-        for(i=0; i<=15; i++)
+        for(i=0; i<=13; i++)
         {
                 
-                if(i!=1)
+                if(i!=0)
                 {
+                    lesReservations.forEach((tab) -> 
+                    { 
+                        if(tab.getHeure() == heure)
+                        {
+                            
+                        }
+                        
+                    });
                     lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
                 }
                 else
