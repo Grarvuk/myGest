@@ -54,7 +54,7 @@ public class FenFXML_mainController implements Initializable
         
         String jours[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         int i, j, heure;
-        heure = 8;
+        heure = 7;
         ObservableList<Label> labs = FXCollections.observableArrayList();
         int noLab = 0;
         Label lab;
@@ -66,15 +66,19 @@ public class FenFXML_mainController implements Initializable
                 
                 if(i!=0)
                 {
-                    lesReservations.forEach((tab) -> 
-                    { 
-                        if(tab.getHeure() == heure)
-                        {
-                            
-                        }
-                        
-                    });
                     lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
+                    for(int k = 0; k<=lesReservations.size() - 1;k++)
+                    {
+                        if(lesReservations.get(k).getHeure() == heure)
+                        {
+                            lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
+                        }
+                        else
+                        {
+                            lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#45FE20"), CornerRadii.EMPTY, Insets.EMPTY)));
+                        }
+                        System.out.println("Heure de réservation : " + lesReservations.get(k).getHeure() + "\n heure : " + heure);
+                    }
                 }
                 else
                 {
@@ -91,10 +95,8 @@ public class FenFXML_mainController implements Initializable
                         java.util.Date tomorrow = calendar.getTime();
 
                         // print out tomorrow's date
-                        System.out.println("tomorrow: " + tomorrow);
                         lab = new Label(tomorrow.toString());
                 }
-                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
                 lab.setMinWidth(300);
                 labs.add(lab);
                 paneAgenda.add(labs.get(noLab), j, i, 1, 1);
@@ -103,7 +105,7 @@ public class FenFXML_mainController implements Initializable
                 heure++;
             
         }
-         heure = 8;
+         heure = 7;
         }
     }
 

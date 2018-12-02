@@ -107,18 +107,5 @@ public class connBDD
         return lesReservations;
     }
     
-    public static int[] getHorrairesPris(ObservableList<Reservation> pLesReservations)
-    {
-        int[] lesHeures = new int[pLesReservations.size()];
-        int i = 0;
-        pLesReservations.forEach((tab) -> 
-        { 
-            calendar.setTime(tab.getHeure());
-            
-        });
-        
-        return lesHeures;
-        
-    }
     
 }
