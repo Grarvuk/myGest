@@ -50,9 +50,17 @@ public class FenFXML_mainController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
         
+        Calendar calendar = Calendar.getInstance();
+        //Calendar autreJour = Calendar.getInstance();
+        java.util.Date dd = new java.util.Date();
+        int jour = dd.getDate();
+        DateFormat datef = new SimpleDateFormat("dd-MM-yyyy");
+        String date = datef.format(dd);
+        
+        System.out.println("Jour actuel : " + jour);
+        
         lesReservations = connBDD.getReservations();
         
-        String jours[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
         int i, j, heure;
         heure = 7;
         ObservableList<Label> labs = FXCollections.observableArrayList();
@@ -61,51 +69,54 @@ public class FenFXML_mainController implements Initializable
         
         for (j=0; j<=6;j++)
         {
-        for(i=0; i<=13; i++)
-        {
-                
-                if(i!=0)
+            for(i=0; i<=13; i++)
+            {
+        
+            if(i!=0)
                 {
-                    lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
-                    for(int k = 0; k<=lesReservations.size() - 1;k++)
-                    {
-                        if(lesReservations.get(k).getHeure() == heure)
-                        {
-                            lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
-                        }
-                        else
-                        {
-                            lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#45FE20"), CornerRadii.EMPTY, Insets.EMPTY)));
-                        }
-                        System.out.println("Heure de réservation : " + lesReservations.get(k).getHeure() + "\n heure : " + heure);
-                    }
+                lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
+                for(int k = 0; k<=lesReservations.size() - 1;k++)
+                {
+                int pJour = calendar.DAY_OF_MONTH;
+        
+                if(lesReservations.get(k).getHeure() == heure)
+                {
+                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
                 }
                 else
                 {
-                        Calendar calendar = Calendar.getInstance();
-    
-                        // get a date to represent "today"
-                        java.util.Date today = calendar.getTime();
-                        //System.out.println("today:    " + today);
- 
-                        // add one day to the date/calendar
-                        calendar.add(Calendar.DAY_OF_YEAR, j);
-    
-                        // now get "tomorrow"
-                        java.util.Date tomorrow = calendar.getTime();
-
-                        // print out tomorrow's date
-                        lab = new Label(tomorrow.toString());
+                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#45FE20"), CornerRadii.EMPTY, Insets.EMPTY)));
                 }
-                lab.setMinWidth(300);
-                labs.add(lab);
-                paneAgenda.add(labs.get(noLab), j, i, 1, 1);
-                //paneAgenda.getChildren().remove(labs.get(noLab));
-                noLab++;
-                heure++;
-            
+        //System.out.println("calendar : " + calendar.DAY_OF_MONTH);
+            }
+            jour++;
         }
-         heure = 7;
+        else
+        {
+        
+        // get a date to represent "today"
+        java.util.Date today = calendar.getTime();
+        //System.out.println("today:    " + today);
+        
+        // add one day to the date/calendar
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        
+        
+        // now get "tomorrow"
+        java.util.Date tomorrow = calendar.getTime();
+        
+        // print out tomorrow's date
+        lab = new Label(tomorrow.toString());
+        }
+        lab.setMinWidth(300);
+        labs.add(lab);
+        paneAgenda.add(labs.get(noLab), j, i, 1, 1);
+        //paneAgenda.getChildren().remove(labs.get(noLab));
+        noLab++;
+        heure++;
+        
+        }
+        heure = 7;
         }
     }
 

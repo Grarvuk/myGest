@@ -70,9 +70,14 @@ public class Reservation
         return heure;
     }
     
+    
+    
    public String affiche()
    {
        return this.getRefAsso() + " Dans la salle " + this.getRefSalle() + " le " + this.getJour() + " à " + this.getHeure();
    }
+   
+   
+
     
 }
