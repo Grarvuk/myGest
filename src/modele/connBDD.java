@@ -64,7 +64,7 @@ public class connBDD
         return lesAssociations;
     }
     
-    public static ObservableList<Reservation> getReservations()
+    public static ObservableList<Reservation> getReservations(String pSalle)
     {
         Connection conn;
 	Statement stmt;
@@ -79,7 +79,7 @@ public class connBDD
 		Class.forName(pilote);
 		conn = DriverManager.getConnection(url,"root","");
 		stmt = (Statement) conn.createStatement();			            
-		rs = stmt.executeQuery("select * from reservation");	
+		rs = stmt.executeQuery("select * from reservation WHERE refSalle = '" + pSalle +"'");	
                 
 		while (rs.next())
 		{

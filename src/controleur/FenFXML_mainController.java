@@ -19,7 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
@@ -39,8 +41,12 @@ public class FenFXML_mainController implements Initializable
     
     private ObservableList<Reservation> lesReservations = FXCollections.observableArrayList();
     private mainApp MainApp;
+    
     @FXML
     GridPane paneAgenda;
+    
+    @FXML
+    ToggleGroup salle;
     
     /**
      * Initializes the controller class.
@@ -49,75 +55,7 @@ public class FenFXML_mainController implements Initializable
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) 
     {
-        
-        Calendar calendar = Calendar.getInstance();
-        //Calendar autreJour = Calendar.getInstance();
-        java.util.Date dd = new java.util.Date();
-        int jour = dd.getDate();
-        DateFormat datef = new SimpleDateFormat("dd-MM-yyyy");
-        String date = datef.format(dd);
-        
-        System.out.println("Jour actuel : " + jour);
-        
-        lesReservations = connBDD.getReservations();
-        
-        int i, j, heure;
-        heure = 7;
-        ObservableList<Label> labs = FXCollections.observableArrayList();
-        int noLab = 0;
-        Label lab;
-        
-        for (j=0; j<=6;j++)
-        {
-            for(i=0; i<=13; i++)
-            {
-        
-            if(i!=0)
-                {
-                lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
-                for(int k = 0; k<=lesReservations.size() - 1;k++)
-                {
-                int pJour = calendar.DAY_OF_MONTH;
-        
-                if(lesReservations.get(k).getHeure() == heure)
-                {
-                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
-                }
-                else
-                {
-                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#45FE20"), CornerRadii.EMPTY, Insets.EMPTY)));
-                }
-        //System.out.println("calendar : " + calendar.DAY_OF_MONTH);
-            }
-            jour++;
-        }
-        else
-        {
-        
-        // get a date to represent "today"
-        java.util.Date today = calendar.getTime();
-        //System.out.println("today:    " + today);
-        
-        // add one day to the date/calendar
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        
-        
-        // now get "tomorrow"
-        java.util.Date tomorrow = calendar.getTime();
-        
-        // print out tomorrow's date
-        lab = new Label(tomorrow.toString());
-        }
-        lab.setMinWidth(300);
-        labs.add(lab);
-        paneAgenda.add(labs.get(noLab), j, i, 1, 1);
-        //paneAgenda.getChildren().remove(labs.get(noLab));
-        noLab++;
-        heure++;
-        
-        }
-        heure = 7;
-        }
+        afficherPlanning("A");
     }
 
     public void setMainApp(mainApp pMainApp)
@@ -126,4 +64,84 @@ public class FenFXML_mainController implements Initializable
         //cmbEmp.setValue("Liste employés");
     }
     
+    public void lancerAffichagePlanning()
+    {
+        for(int i = 0; i<=salle.getToggles().size()-1;i++)
+        {
+            if(salle.getToggles().get(i).isSelected() == true)
+            {
+                RadioButton chk = (RadioButton)salle.getToggles().get(i);
+                afficherPlanning(chk.getText());
+            }
+        }
+    }
+    
+    public void afficherPlanning(String pSalle)
+    {
+        Calendar calendar = Calendar.getInstance();
+        
+        java.util.Date dd = new java.util.Date();
+        
+        int jour = dd.getDate();
+        DateFormat datef = new SimpleDateFormat("dd-MM-yyyy");
+        String date = datef.format(dd);
+        
+        
+        lesReservations = connBDD.getReservations(pSalle);
+        
+        int i, j, heure;
+        heure = 7;
+        ObservableList<Label> labs = FXCollections.observableArrayList();
+        int noLab = 0;
+        boolean jourDejaPasse = false;
+        Label lab;
+        
+        for (j=0; j<=6;j++)
+        {
+            for(i=7; i<=21; i++)
+            {
+        
+                    if(i!=7)
+                    {
+                        lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
+                        for(int k = 0; k<=lesReservations.size() - 1;k++)
+                        {
+                            
+                            if(lesReservations.get(k).getHeure().getHours() == i && lesReservations.get(k).getJour().getDate() == jour)
+                            {
+                                
+                                
+                                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
+                                jourDejaPasse = true;
+                            }
+                            else if(jourDejaPasse == false)
+                            {
+                                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#45FE20"), CornerRadii.EMPTY, Insets.EMPTY)));
+                            }        
+                        }
+                
+                        jourDejaPasse = false;
+                    }
+                    else
+                    {
+        
+                        java.util.Date today = calendar.getTime();
+                        java.util.Date tomorrow = calendar.getTime();
+        
+                        lab = new Label(tomorrow.toString());
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        
+                    }
+                    lab.setMinWidth(300);
+                    labs.add(lab);
+                    paneAgenda.add(labs.get(noLab), j, i, 1, 1);
+                    //paneAgenda.getChildren().remove(labs.get(noLab));
+                    noLab++;
+        heure++;
+        
+        }
+        heure = 7;
+        jour++;
+        }
+    }
 }

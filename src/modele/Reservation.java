@@ -18,19 +18,14 @@ public class Reservation
     private String refSalle;
     private String refAsso;
     private Date jour;
-    private int heure;
+    private Time heure;
 
     public Reservation(String pRefAsso, String pRefSalle, Date pJour, Time pHeure)
     {
         this.refSalle = pRefSalle;
         this.refAsso = pRefAsso;
         this.jour = pJour;
-        
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(pHeure);
-            
-        int lheure = Calendar.HOUR;
-        heure = lheure;
+        this.heure = pHeure;
     }
     
     
@@ -65,7 +60,7 @@ public class Reservation
         this.jour = pJour;
     }
 
-    public int getHeure()
+    public Time getHeure()
     {
         return heure;
     }
@@ -78,6 +73,9 @@ public class Reservation
    }
    
    
-
+    public int getDD()
+    {
+        return this.getJour().getDay();
+    }
     
 }
