@@ -55,13 +55,13 @@ public class FenFXML_mainController implements Initializable
     @SuppressWarnings("empty-statement")
     public void initialize(URL url, ResourceBundle rb) 
     {
+        salle.getToggles().get(0).setSelected(true);
         afficherPlanning("A");
     }
 
     public void setMainApp(mainApp pMainApp)
     {
         this.MainApp = pMainApp;
-        //cmbEmp.setValue("Liste employés");
     }
     
     public void lancerAffichagePlanning()
@@ -71,6 +71,7 @@ public class FenFXML_mainController implements Initializable
             if(salle.getToggles().get(i).isSelected() == true)
             {
                 RadioButton chk = (RadioButton)salle.getToggles().get(i);
+                paneAgenda.getChildren().clear();
                 afficherPlanning(chk.getText());
             }
         }
@@ -109,9 +110,8 @@ public class FenFXML_mainController implements Initializable
                             
                             if(lesReservations.get(k).getHeure().getHours() == i && lesReservations.get(k).getJour().getDate() == jour)
                             {
-                                
-                                
-                                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));
+                                lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00 " + lesReservations.get(k).getRefAsso());
+                                lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));                                
                                 jourDejaPasse = true;
                             }
                             else if(jourDejaPasse == false)
