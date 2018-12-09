@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modele.*;
 
@@ -64,7 +65,23 @@ public class mainApp extends Application {
         }
     }
     
-
+    public void afficheResa() throws IOException
+    {
+            FXMLLoader loader = new
+            FXMLLoader (mainApp.class.getResource("/vue/FenFXML_ajoutReservation.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Fen");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+    // Place l'étudiant dans le controleur
+            FenFXML_ajoutReservationController controleur = loader.getController();
+            controleur.remplirLesCBM(lesAssociations);
+            dialogStage.show();
+    }
+    
 
     /**
      * @param args the command line arguments
@@ -74,6 +91,10 @@ public class mainApp extends Application {
         launch(args);
     }
     
+    public ObservableList <Association> getLesAssociations()
+    {
+        return lesAssociations;
+    }
 
 
 }

@@ -72,5 +72,8 @@ public class Association
                 + " Adresse : " + this.getAdresse() + " Nom du responsable : " + this.getNomResponsable());
     }
     
-    
+    public String toString()
+    {
+        return this.getRefAsso();
+    }
 }

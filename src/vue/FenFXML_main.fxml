@@ -38,5 +38,6 @@
          </toggleGroup></RadioButton>
       <RadioButton id="rbtnB" fx:id="rbtnB" layoutX="89.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="B" toggleGroup="$salle" />
       <RadioButton id="rbtnC" fx:id="rbtnC" layoutX="124.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="C" toggleGroup="$salle" />
+      <Button fx:id="btnReservation" layoutX="544.0" layoutY="546.0" mnemonicParsing="false" onAction="#afficheFenReservation" prefHeight="48.0" prefWidth="177.0" text="Créer une réservation" />
    </children>
 </AnchorPane>

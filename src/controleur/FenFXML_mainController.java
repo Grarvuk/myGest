@@ -6,6 +6,7 @@
 package controleur;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -77,6 +78,11 @@ public class FenFXML_mainController implements Initializable
         }
     }
     
+    public void afficheFenReservation() throws IOException
+    {
+        MainApp.afficheResa();
+    }
+    
     public void afficherPlanning(String pSalle)
     {
         Calendar calendar = Calendar.getInstance();
@@ -144,4 +150,6 @@ public class FenFXML_mainController implements Initializable
         jour++;
         }
     }
+    
+    
 }
