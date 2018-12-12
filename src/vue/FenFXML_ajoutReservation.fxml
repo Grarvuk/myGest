@@ -13,7 +13,7 @@
             <Label layoutX="110.0" layoutY="90.0" text="Jour et heure" />
          </children>
       </Group>
-      <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" onAction="#remplirSalleSport" prefWidth="150.0" />
       <ComboBox fx:id="cmbSport" layoutX="207.0" layoutY="124.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbSalle" layoutX="207.0" layoutY="154.0" prefWidth="150.0" />
       <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" prefHeight="25.0" prefWidth="150.0" />

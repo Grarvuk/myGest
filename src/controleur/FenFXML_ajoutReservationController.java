@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import modele.Association;
 import modele.Reservation;
+import modele.connBDD;
 
 
 /**
@@ -42,7 +43,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        System.out.println("truc");
+        
         
         
     }
@@ -51,14 +52,29 @@ public class FenFXML_ajoutReservationController implements Initializable {
     public void remplirLesCBM(ObservableList <Association> pLesAssociations)
     {
        ObservableList lesSalles = FXCollections.observableArrayList();
-       lesSalles.add("A");
-       lesSalles.add("B");
-       lesSalles.add("C");
-       cmbSalle.setItems(lesSalles);
-       cmbSalle.getSelectionModel().select(0);
+       
+       
        lesAssociations = pLesAssociations;
        cmbAsso.setItems(lesAssociations);
-       cmbAsso.getSelectionModel().select(0);
+       cmbAsso.getSelectionModel().select(1);
+       remplirSalleSport();
+    }
+    
+    public void remplirSalleSport()
+    {
+        ObservableList lesSportsSalles;
+        ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();
+        
+        String pAsso = cmbAsso.getSelectionModel().getSelectedItem().toString();
+        lesSportsSalles = connBDD.getLesSallesParAsso(pAsso);
+        
+        
+        cmbSalle.setItems(lesSportsSalles);
+        cmbSalle.getSelectionModel().select(0);
+        
+        lesSportsSalles = connBDD.getLesSportsParAsso(pAsso);
+        cmbSport.setItems(lesSportsSalles);
+        cmbSport.getSelectionModel().select(0);
     }
     
 }
