@@ -107,7 +107,7 @@ public class connBDD
         return lesReservations;
     }
     
-    public static ObservableList<SalleSport> getLesSallesParAsso(String pAsso)
+    public static ObservableList<SalleSport> getLesSallesParAsso(String pSport)
     {
         Connection conn;
 	Statement stmt;
@@ -122,7 +122,7 @@ public class connBDD
 		Class.forName(pilote);
 		conn = DriverManager.getConnection(url,"root","");
 		stmt = (Statement) conn.createStatement();			            
-		rs = stmt.executeQuery("SELECT DISTINCT(refSalle) FROM `accueillir` a, `pratiquer` p WHERE p.refAsso = '" + pAsso + "' AND a.nomSportAutorise = p.nomSport ");	
+		rs = stmt.executeQuery("SELECT DISTINCT(refSalle) FROM `accueillir` a, `pratiquer` p WHERE p.nomSport = '" + pSport + "' AND a.nomSportAutorise = p.nomSport ");	
                 
 		while (rs.next())
 		{

@@ -14,7 +14,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import java.awt.FlowLayout;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.Chronology;
+import java.util.Date;
+import java.util.Locale;
 import static javafx.collections.FXCollections.observableList;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import modele.Association;
@@ -30,12 +42,14 @@ import modele.connBDD;
 public class FenFXML_ajoutReservationController implements Initializable {
     
     @FXML
-    ComboBox cmbAsso, cmbSport, cmbSalle;
+    ComboBox cmbAsso, cmbSport, cmbSalle, cbmHeure;
     @FXML
     DatePicker dpJourRese;
     mainApp MainApp;
+    boolean jourPresent = false;
     
     ObservableList <Association> lesAssociations;
+    ObservableList<Reservation> lesReservations;
 
     /**
      * Initializes the controller class.
@@ -43,38 +57,79 @@ public class FenFXML_ajoutReservationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        
-        
+        dpJourRese.setValue(LocalDate.now());
         
     }
 
 
-    public void remplirLesCBM(ObservableList <Association> pLesAssociations)
+    public void remplirLesCBM(ObservableList <Association> pLesAssociations, ObservableList<Reservation> plesReservations)
     {
        ObservableList lesSalles = FXCollections.observableArrayList();
        
-       
+       lesReservations = plesReservations;
        lesAssociations = pLesAssociations;
        cmbAsso.setItems(lesAssociations);
        cmbAsso.getSelectionModel().select(1);
-       remplirSalleSport();
+       remplirSport();
+       remplirHeure();
     }
     
-    public void remplirSalleSport()
+    public void remplirHeure()
+    {
+        ObservableList <String> heures = FXCollections.observableArrayList();
+        int jour = dpJourRese.getValue().getDayOfMonth();
+        Date jourChoisis = java.sql.Date.valueOf(dpJourRese.getValue());
+        
+        for(int i = 0; i<= lesReservations.size()-1;i++)
+        {
+            System.out.println("Jour du dp : " + lesReservations.get(i).getJour());
+            if(jourChoisis == lesReservations.get(i).getJour())
+            {
+                jourPresent = true;
+            }
+        }
+        if(jourPresent == false)
+        {
+            for(int i=8; i<=21; i++)
+            {
+                heures.add(String.valueOf(i));
+            }
+        }
+        /*for(int i=7; i<=21; i++)
+        {
+        if(lesReservations.get(k).getHeure().getHours() == i && lesReservations.get(k).getJour().getDate() == jour)
+        {
+        
+        }
+        cbmHeure.setItems(heures);
+        }*/
+        System.out.println("nb heures : "+heures.size());
+        System.out.println("première heure : "+heures.get(0));
+        cbmHeure.setItems(heures);
+    }
+    
+    public void remplirSport()
     {
         ObservableList lesSportsSalles;
         ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();
         
         String pAsso = cmbAsso.getSelectionModel().getSelectedItem().toString();
-        lesSportsSalles = connBDD.getLesSallesParAsso(pAsso);
-        
-        
-        cmbSalle.setItems(lesSportsSalles);
-        cmbSalle.getSelectionModel().select(0);
         
         lesSportsSalles = connBDD.getLesSportsParAsso(pAsso);
         cmbSport.setItems(lesSportsSalles);
-        cmbSport.getSelectionModel().select(0);
+        cmbSport.getSelectionModel().select(0);    
+        remplirSalle();
     }
     
+        public void remplirSalle()
+    {
+        ObservableList lesSportsSalles;
+        ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();
+        
+        String pSport = cmbSport.getSelectionModel().getSelectedItem().toString();
+        
+        lesSportsSalles = connBDD.getLesSallesParAsso(pSport);
+        cmbSalle.setItems(lesSportsSalles);
+        cmbSalle.getSelectionModel().select(0);          
+    }
 }

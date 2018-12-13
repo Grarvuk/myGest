@@ -65,7 +65,7 @@ public class mainApp extends Application {
         }
     }
     
-    public void afficheResa() throws IOException
+    public void afficheResa(ObservableList<Reservation> plesReservations) throws IOException
     {
             FXMLLoader loader = new
             FXMLLoader (mainApp.class.getResource("/vue/FenFXML_ajoutReservation.fxml"));
@@ -78,7 +78,7 @@ public class mainApp extends Application {
             dialogStage.setScene(scene);
     // Place l'étudiant dans le controleur
             FenFXML_ajoutReservationController controleur = loader.getController();
-            controleur.remplirLesCBM(lesAssociations);
+            controleur.remplirLesCBM(lesAssociations, plesReservations);
             dialogStage.show();
     }
     
