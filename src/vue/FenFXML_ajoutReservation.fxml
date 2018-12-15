@@ -14,16 +14,14 @@
             <Label layoutX="110.0" layoutY="90.0" text="Jour" />
          </children>
       </Group>
-      <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" onAction="#remplirSport" prefWidth="150.0" />
-      <ComboBox fx:id="cmbSport" layoutX="207.0" layoutY="160.0" onDragDetected="#remplirSalle" prefWidth="150.0" />
-      <ComboBox fx:id="cmbSalle" layoutX="207.0" layoutY="190.0" prefWidth="150.0" />
-      <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" prefHeight="25.0" prefWidth="150.0" />
-      <Label layoutX="112.0" layoutY="194.0" text="Salle" />
-      <Label layoutX="110.0" layoutY="167.0" text="Sport" />
+      <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbSalle" layoutX="205.0" layoutY="159.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" onAction="#remplirHeure" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="110.0" layoutY="163.0" text="Salle" />
       <Label layoutX="110.0" layoutY="56.0" text="Association" />
-      <Button layoutX="115.0" layoutY="237.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Réserver" />
-      <Button layoutX="236.0" layoutY="237.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Annuler" />
+      <Button layoutX="113.0" layoutY="206.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Réserver" />
+      <Button layoutX="234.0" layoutY="206.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Annuler" />
       <Text layoutX="105.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heure" />
-      <ComboBox fx:id="cmbHeure" layoutX="207.0" layoutY="126.0" onAction="#remplirSport" prefWidth="150.0" />
+      <ComboBox fx:id="cmbHeure" layoutX="207.0" layoutY="126.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

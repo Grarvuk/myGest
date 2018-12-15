@@ -42,7 +42,7 @@ import modele.connBDD;
 public class FenFXML_ajoutReservationController implements Initializable {
     
     @FXML
-    ComboBox cmbAsso, cmbSport, cmbSalle, cbmHeure;
+    ComboBox cmbAsso, cmbSalle, cmbHeure;
     @FXML
     DatePicker dpJourRese;
     mainApp MainApp;
@@ -70,66 +70,59 @@ public class FenFXML_ajoutReservationController implements Initializable {
        lesAssociations = pLesAssociations;
        cmbAsso.setItems(lesAssociations);
        cmbAsso.getSelectionModel().select(1);
-       remplirSport();
        remplirHeure();
+       remplirSalle();
     }
     
     public void remplirHeure()
     {
+        jourPresent = false;
+        int jourRetenu=0;
         ObservableList <String> heures = FXCollections.observableArrayList();
-        int jour = dpJourRese.getValue().getDayOfMonth();
         Date jourChoisis = java.sql.Date.valueOf(dpJourRese.getValue());
         
         for(int i = 0; i<= lesReservations.size()-1;i++)
         {
-            System.out.println("Jour du dp : " + lesReservations.get(i).getJour());
-            if(jourChoisis == lesReservations.get(i).getJour())
+            System.out.println("Jour du dp : " + jourChoisis + "\nJour resa : " + lesReservations.get(i).getJour());
+            if(jourChoisis.equals(lesReservations.get(i).getJour()))
             {
+                System.out.println("If qui rend true");
+                jourRetenu = i;
                 jourPresent = true;
             }
         }
         if(jourPresent == false)
         {
+            System.out.println("Par le if\nJourPresent : " + jourPresent);
             for(int i=8; i<=21; i++)
             {
                 heures.add(String.valueOf(i));
             }
         }
-        /*for(int i=7; i<=21; i++)
+        else
         {
-        if(lesReservations.get(k).getHeure().getHours() == i && lesReservations.get(k).getJour().getDate() == jour)
-        {
-        
+            System.out.println("Par le else\njourPresent : " + jourPresent);
+            for(int i=8; i<=21; i++)
+            {
+                int heure = lesReservations.get(1).getHeure().getHours();
+                if(heure != i)
+                {
+                    heures.add(String.valueOf(i));
+                }
+            }
         }
-        cbmHeure.setItems(heures);
-        }*/
-        System.out.println("nb heures : "+heures.size());
-        System.out.println("première heure : "+heures.get(0));
-        cbmHeure.setItems(heures);
+        cmbHeure.setItems(heures);
     }
     
-    public void remplirSport()
+    
+    
+    public void remplirSalle()
     {
         ObservableList lesSportsSalles;
-        ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();
-        
+        ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();    
         String pAsso = cmbAsso.getSelectionModel().getSelectedItem().toString();
-        
-        lesSportsSalles = connBDD.getLesSportsParAsso(pAsso);
-        cmbSport.setItems(lesSportsSalles);
-        cmbSport.getSelectionModel().select(0);    
-        remplirSalle();
-    }
-    
-        public void remplirSalle()
-    {
-        ObservableList lesSportsSalles;
-        ObservableList DistinctlesSportsSalles = FXCollections.observableArrayList();
-        
-        String pSport = cmbSport.getSelectionModel().getSelectedItem().toString();
-        
-        lesSportsSalles = connBDD.getLesSallesParAsso(pSport);
-        cmbSalle.setItems(lesSportsSalles);
-        cmbSalle.getSelectionModel().select(0);          
+        DistinctlesSportsSalles = connBDD.getLesSallesParAsso(pAsso);
+        cmbSalle.setItems(DistinctlesSportsSalles);
+        cmbSalle.getSelectionModel().select(0);
     }
 }
