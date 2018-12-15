@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import java.awt.FlowLayout;
+import java.awt.event.WindowEvent;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
@@ -58,7 +59,6 @@ public class FenFXML_ajoutReservationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
         dpJourRese.setValue(LocalDate.now());
-        
     }
 
 
@@ -132,5 +132,18 @@ public class FenFXML_ajoutReservationController implements Initializable {
         lesReservations = connBDD.getReservations(cmbSalle.getSelectionModel().getSelectedItem().toString());
         remplirHeure();
         System.out.println("setReservation");
+    }
+    
+    public void ajoutReservation()
+    {
+        String heure = cmbHeure.getSelectionModel().getSelectedItem().toString() + ":00:00";
+        String jour = java.sql.Date.valueOf(dpJourRese.getValue()).toString();
+        String refSalle = cmbSalle.getSelectionModel().getSelectedItem().toString();
+        String refAsso = cmbAsso.getSelectionModel().getSelectedItem().toString();
+        
+        System.out.println("Heure : " + heure + "\njour : " + jour + "\nRefSalle : " + refSalle + "\nrefAsso : " + refAsso);
+        
+        connBDD.ajoutReservation(refSalle, jour, heure, refAsso);
+        ;
     }
 }

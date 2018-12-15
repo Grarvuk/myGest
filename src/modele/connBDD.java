@@ -80,7 +80,6 @@ public class connBDD
 		conn = DriverManager.getConnection(url,"root","");
 		stmt = (Statement) conn.createStatement();			            
 		rs = stmt.executeQuery("select * from reservation WHERE refSalle = '" + pSalle +"'");	
-                
 		while (rs.next())
 		{
                     
@@ -191,6 +190,39 @@ public class connBDD
             System.out.println("ERREUR Driver " + e.getMessage());
 	} 
         return lesSalleSport;
+    }
+    
+    public static void ajoutReservation(String pSalle, String pDate, String pHeure, String pAsso)
+    {
+        Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	String pilote = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/gymnase";	
+        
+        ObservableList<Reservation> lesReservations = FXCollections.observableArrayList();
+        
+	try
+	{
+		Class.forName(pilote);
+		conn = DriverManager.getConnection(url,"root","");
+		stmt = (Statement) conn.createStatement();			            
+		stmt.executeUpdate("INSERT INTO reservation (refSalle, date, heure, refAsso) VALUES ('" + pSalle + "','" + pDate+ "', '" + pHeure + "', '" + pAsso + "')");
+
+		stmt.close();
+		conn.close();
+                
+	}			        
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	} 
     }
     
 }

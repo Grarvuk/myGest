@@ -19,7 +19,7 @@
       <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" onAction="#remplirHeure" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="110.0" layoutY="163.0" text="Salle" />
       <Label layoutX="110.0" layoutY="56.0" text="Association" />
-      <Button layoutX="113.0" layoutY="206.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Réserver" />
+      <Button fx:id="btnreserver" layoutX="113.0" layoutY="206.0" mnemonicParsing="false" onAction="#ajoutReservation" prefHeight="42.0" prefWidth="112.0" text="Réserver" />
       <Button layoutX="234.0" layoutY="206.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Annuler" />
       <Text layoutX="105.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Heure" />
       <ComboBox fx:id="cmbHeure" layoutX="207.0" layoutY="126.0" prefWidth="150.0" />
