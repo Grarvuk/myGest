@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.event.InputEvent;
 import java.awt.event.WindowEvent;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -21,15 +23,22 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.chrono.Chronology;
 import java.util.Date;
 import java.util.Locale;
+import javafx.application.Platform;
 import static javafx.collections.FXCollections.observableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import modele.Association;
 import modele.Reservation;
 import modele.connBDD;
@@ -60,7 +69,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
     {
         dpJourRese.setValue(LocalDate.now());
     }
-
+    
 
     public void remplirLesCBM(ObservableList <Association> pLesAssociations)
     {

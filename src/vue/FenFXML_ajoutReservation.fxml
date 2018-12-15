@@ -6,7 +6,6 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <AnchorPane id="AnchorPane" prefHeight="354.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.FenFXML_ajoutReservationController">
    <children>
       <Group>
@@ -15,6 +14,7 @@
          </children>
       </Group>
       <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" prefWidth="150.0" />
+      
       <ComboBox fx:id="cmbSalle" layoutX="205.0" layoutY="159.0" onAction="#setReservations" prefWidth="150.0" />
       <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" onAction="#remplirHeure" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="110.0" layoutY="163.0" text="Salle" />

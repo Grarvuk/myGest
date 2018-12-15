@@ -67,10 +67,23 @@ public class mainApp extends Application {
     
     public void afficheResa() throws IOException
     {
+            Stage dialogStage = new Stage();
+            /*Button btn = new Button("Exit");
+            
+            btn.setOnAction(ae ->{
+            dialogStage.close();
+            });*/
+        
             FXMLLoader loader = new
             FXMLLoader (mainApp.class.getResource("/vue/FenFXML_ajoutReservation.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
+            
+            page.getChildren().get(6).setOnMouseClicked(ae ->{
+                dialogStage.close();
+            });
+            
+            System.out.println("Node : " + page.getChildren().get(6).toString());
+            
             dialogStage.setTitle("Fen");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
