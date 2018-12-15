@@ -62,16 +62,15 @@ public class FenFXML_ajoutReservationController implements Initializable {
     }
 
 
-    public void remplirLesCBM(ObservableList <Association> pLesAssociations, ObservableList<Reservation> plesReservations)
+    public void remplirLesCBM(ObservableList <Association> pLesAssociations)
     {
        ObservableList lesSalles = FXCollections.observableArrayList();
        
-       lesReservations = plesReservations;
        lesAssociations = pLesAssociations;
        cmbAsso.setItems(lesAssociations);
        cmbAsso.getSelectionModel().select(1);
-       remplirHeure();
        remplirSalle();
+       remplirHeure();
     }
     
     public void remplirHeure()
@@ -104,7 +103,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
             System.out.println("Par le else\njourPresent : " + jourPresent);
             for(int i=8; i<=21; i++)
             {
-                int heure = lesReservations.get(1).getHeure().getHours();
+                int heure = lesReservations.get(jourRetenu).getHeure().getHours();
                 if(heure != i)
                 {
                     heures.add(String.valueOf(i));
@@ -112,6 +111,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
             }
         }
         cmbHeure.setItems(heures);
+        cmbHeure.getSelectionModel().select(0);
     }
     
     
@@ -124,5 +124,13 @@ public class FenFXML_ajoutReservationController implements Initializable {
         DistinctlesSportsSalles = connBDD.getLesSallesParAsso(pAsso);
         cmbSalle.setItems(DistinctlesSportsSalles);
         cmbSalle.getSelectionModel().select(0);
+        lesReservations = connBDD.getReservations(cmbSalle.getSelectionModel().getSelectedItem().toString());
+    }
+    
+    public void setReservations()
+    {
+        lesReservations = connBDD.getReservations(cmbSalle.getSelectionModel().getSelectedItem().toString());
+        remplirHeure();
+        System.out.println("setReservation");
     }
 }

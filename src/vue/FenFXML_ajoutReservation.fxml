@@ -15,7 +15,7 @@
          </children>
       </Group>
       <ComboBox fx:id="cmbAsso" layoutX="207.0" layoutY="52.0" prefWidth="150.0" />
-      <ComboBox fx:id="cmbSalle" layoutX="205.0" layoutY="159.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbSalle" layoutX="205.0" layoutY="159.0" onAction="#setReservations" prefWidth="150.0" />
       <DatePicker fx:id="dpJourRese" layoutX="207.0" layoutY="87.0" onAction="#remplirHeure" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="110.0" layoutY="163.0" text="Salle" />
       <Label layoutX="110.0" layoutY="56.0" text="Association" />

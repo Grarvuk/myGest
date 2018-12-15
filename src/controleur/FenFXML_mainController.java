@@ -80,8 +80,7 @@ public class FenFXML_mainController implements Initializable
     
     public void afficheFenReservation() throws IOException
     {
-        MainApp.afficheResa(lesReservations);
-        System.out.println("nb resa : " + lesReservations.size());
+        MainApp.afficheResa();
     }
     
     public void afficherPlanning(String pSalle)
