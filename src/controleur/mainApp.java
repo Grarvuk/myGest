@@ -34,7 +34,7 @@ public class mainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<Association> lesAssociations = FXCollections.observableArrayList();
-
+    FenFXML_mainController controleurMain;
     
     @Override
     public void start(Stage primaryStage) throws IOException
@@ -42,6 +42,7 @@ public class mainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Réservation gymnase");
         //lesEmployes = connBDD.getLesEmployes();
+        
         
         try
         {
@@ -56,8 +57,8 @@ public class mainApp extends Application {
             loader = new FXMLLoader(mainApp.class.getResource("/vue/FenFXML_main.fxml"));
             AnchorPane overviewPage = (AnchorPane)loader.load();
             rootLayout.setCenter(overviewPage);
-            FenFXML_mainController controleur = loader.getController();
-            controleur.setMainApp(this);
+            controleurMain = loader.getController();
+            controleurMain.setMainApp(this);
         }
         catch (IOException e)
         {
@@ -65,7 +66,7 @@ public class mainApp extends Application {
         }
     }
     
-    public void afficheResa() throws IOException
+    public void afficheResa(String pSalle) throws IOException
     {
             Stage dialogStage = new Stage();
             /*Button btn = new Button("Exit");
@@ -80,6 +81,7 @@ public class mainApp extends Application {
             
             page.getChildren().get(6).setOnMouseClicked(ae ->{
                 dialogStage.close();
+                controleurMain.afficherPlanning(pSalle);
             });
             
             System.out.println("Node : " + page.getChildren().get(6).toString());

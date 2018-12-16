@@ -80,7 +80,16 @@ public class FenFXML_mainController implements Initializable
     
     public void afficheFenReservation() throws IOException
     {
-        MainApp.afficheResa();
+        String psalle = "A";
+        for(int i = 0; i<=salle.getToggles().size()-1;i++)
+        {
+            if(salle.getToggles().get(i).isSelected() == true)
+            {
+                RadioButton chk = (RadioButton)salle.getToggles().get(i);
+                psalle = chk.getText();
+            }
+        }
+        MainApp.afficheResa(psalle);
     }
     
     public void afficherPlanning(String pSalle)
@@ -90,8 +99,17 @@ public class FenFXML_mainController implements Initializable
         java.util.Date dd = new java.util.Date();
         
         int jour = dd.getDate();
-        DateFormat datef = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat datef = new SimpleDateFormat("EEEE dd-MM-yyyy", java.util.Locale.FRENCH);
+        System.out.println("Jour de la semaine : " + datef.toString());
         String date = datef.format(dd);
+        
+        java.util.Date now = new java.util.Date();
+ 
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the day of the week abbreviated
+        System.out.println("Format court : "+simpleDateformat.format(now));
+ 
+        simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        System.out.println("Format long : "+simpleDateformat.format(now));
         
         
         lesReservations = connBDD.getReservations(pSalle);
@@ -133,8 +151,11 @@ public class FenFXML_mainController implements Initializable
         
                         java.util.Date today = calendar.getTime();
                         java.util.Date tomorrow = calendar.getTime();
+                        
+                        simpleDateformat = new SimpleDateFormat("EEEE dd MMMM yyyy"); // the day of the week spelled out completely
+                        System.out.println("Format long : "+simpleDateformat.format(tomorrow));
         
-                        lab = new Label(tomorrow.toString());
+                        lab = new Label(simpleDateformat.format(tomorrow));
                         calendar.add(Calendar.DAY_OF_YEAR, 1);
         
                     }

@@ -95,7 +95,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
         {
             if(jourChoisis.equals(lesReservations.get(i).getJour()))
             {
-                System.out.println("If qui rend true");
+                System.out.println("Jour choisis : " + jourChoisis);
                 tabReservation[indexTab] = i;
                 indexTab++;
                 jourRetenu = i;
@@ -115,13 +115,16 @@ public class FenFXML_ajoutReservationController implements Initializable {
             System.out.println("Par le else\njourPresent : " + jourPresent);
             for(int i=8; i<=21; i++)
             {
+                System.out.println("i : " + i);
                 boolean heureLibre = true;
-                for(int k = 0; k<=indexTab;k++)
+                for(int k = 0; k<=indexTab-1;k++)
                 {
                     int heure = lesReservations.get(tabReservation[k]).getHeure().getHours();
                     if(heure == i)
                     {
                         heureLibre = false;
+                        System.out.println("heure : " + heure);
+                        System.out.println("tabReservation[k] : " + tabReservation[k]);
                     }
                 }
                 if(heureLibre == true)
@@ -164,7 +167,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
         
         System.out.println("Heure : " + heure + "\njour : " + jour + "\nRefSalle : " + refSalle + "\nrefAsso : " + refAsso);
         
-        //connBDD.ajoutReservation(refSalle, jour, heure, refAsso);
+        connBDD.ajoutReservation(refSalle, jour, heure, refAsso);
         ;
     }
 }
