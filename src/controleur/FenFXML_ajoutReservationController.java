@@ -85,16 +85,19 @@ public class FenFXML_ajoutReservationController implements Initializable {
     public void remplirHeure()
     {
         jourPresent = false;
+        int[] tabReservation = new int[lesReservations.size()];
+        int indexTab = 0;
         int jourRetenu=0;
         ObservableList <String> heures = FXCollections.observableArrayList();
         Date jourChoisis = java.sql.Date.valueOf(dpJourRese.getValue());
         
         for(int i = 0; i<= lesReservations.size()-1;i++)
         {
-            System.out.println("Jour du dp : " + jourChoisis + "\nJour resa : " + lesReservations.get(i).getJour());
             if(jourChoisis.equals(lesReservations.get(i).getJour()))
             {
                 System.out.println("If qui rend true");
+                tabReservation[indexTab] = i;
+                indexTab++;
                 jourRetenu = i;
                 jourPresent = true;
             }
@@ -112,11 +115,20 @@ public class FenFXML_ajoutReservationController implements Initializable {
             System.out.println("Par le else\njourPresent : " + jourPresent);
             for(int i=8; i<=21; i++)
             {
-                int heure = lesReservations.get(jourRetenu).getHeure().getHours();
-                if(heure != i)
+                boolean heureLibre = true;
+                for(int k = 0; k<=indexTab;k++)
+                {
+                    int heure = lesReservations.get(tabReservation[k]).getHeure().getHours();
+                    if(heure == i)
+                    {
+                        heureLibre = false;
+                    }
+                }
+                if(heureLibre == true)
                 {
                     heures.add(String.valueOf(i));
                 }
+                heureLibre = true;
             }
         }
         cmbHeure.setItems(heures);
@@ -152,7 +164,7 @@ public class FenFXML_ajoutReservationController implements Initializable {
         
         System.out.println("Heure : " + heure + "\njour : " + jour + "\nRefSalle : " + refSalle + "\nrefAsso : " + refAsso);
         
-        connBDD.ajoutReservation(refSalle, jour, heure, refAsso);
+        //connBDD.ajoutReservation(refSalle, jour, heure, refAsso);
         ;
     }
 }
