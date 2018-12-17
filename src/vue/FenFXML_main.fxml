@@ -9,9 +9,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controleur.FenFXML_mainController">
    <children>
-      <GridPane fx:id="paneAgenda" layoutY="84.0" prefHeight="346.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+      <GridPane fx:id="paneAgenda" layoutY="84.0" prefHeight="288.0" prefWidth="984.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="216.0" AnchorPane.topAnchor="84.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,6 +22,7 @@
         </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
          </rowConstraints>
          <children>
             <Label />
@@ -29,15 +31,55 @@
             <Label GridPane.columnIndex="3" />
             <Label GridPane.columnIndex="4" />
             <Label GridPane.columnIndex="5" />
-            <Label GridPane.columnIndex="6" />
+            <Label GridPane.columnIndex="7" />
          </children>
       </GridPane>
       <RadioButton id="rbtnA" fx:id="rbtnA" layoutX="53.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="A">
          <toggleGroup>
             <ToggleGroup fx:id="salle" />
-         </toggleGroup></RadioButton>
-      <RadioButton id="rbtnB" fx:id="rbtnB" layoutX="89.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="B" toggleGroup="$salle" />
-      <RadioButton id="rbtnC" fx:id="rbtnC" layoutX="124.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="C" toggleGroup="$salle" />
-      <Button fx:id="btnReservation" layoutX="544.0" layoutY="546.0" mnemonicParsing="false" onAction="#afficheFenReservation" prefHeight="48.0" prefWidth="177.0" text="Créer une réservation" />
+         </toggleGroup>
+         <padding>
+            <Insets top="10.0" />
+         </padding></RadioButton>
+      <RadioButton id="rbtnB" fx:id="rbtnB" layoutX="89.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="B" toggleGroup="$salle">
+         <padding>
+            <Insets top="10.0" />
+         </padding></RadioButton>
+      <RadioButton id="rbtnC" fx:id="rbtnC" layoutX="124.0" layoutY="27.0" mnemonicParsing="false" onAction="#lancerAffichagePlanning" text="C" toggleGroup="$salle">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </RadioButton>
+      <Button fx:id="btnReservation" layoutX="544.0" layoutY="546.0" mnemonicParsing="false" onAction="#afficheFenReservation" prefHeight="48.0" prefWidth="177.0" text="Créer une réservation" AnchorPane.bottomAnchor="10.0" />
+      <SplitPane layoutX="984.0" layoutY="62.0" prefHeight="341.0" prefWidth="205.0">
+         <items>
+            <GridPane prefHeight="317.0" prefWidth="203.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="119.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="84.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="205.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="509.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="583.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="613.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="613.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Créneau restant :" />
+                  <Label text="Pourcentage pris : " GridPane.rowIndex="1" />
+                  <Label text="Créneau le plus pris :" GridPane.rowIndex="2" />
+                  <Label text="Asso la plus présente :" GridPane.rowIndex="3" />
+                  <Label text="Salle la plus prise :" GridPane.rowIndex="4" />
+                  <Label fx:id="labCreneauRes" text="." GridPane.columnIndex="1" />
+                  <Label fx:id="labPourcPris" text="." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="labCreneauPris" text="." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="labAssoPresente" text="." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="labSallePlus" text="." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+         </items>
+      </SplitPane>
+      <CheckBox layoutX="984.0" layoutY="32.0" mnemonicParsing="false" text="Tout" />
    </children>
 </AnchorPane>

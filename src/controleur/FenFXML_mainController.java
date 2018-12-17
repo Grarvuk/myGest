@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -48,6 +49,9 @@ public class FenFXML_mainController implements Initializable
     
     @FXML
     ToggleGroup salle;
+    
+    @FXML
+    Label labCreneauRes, labPourcPris, labCreneauPris, labAssoPresente, labSallePlus;
     
     /**
      * Initializes the controller class.
@@ -120,6 +124,8 @@ public class FenFXML_mainController implements Initializable
         int noLab = 0;
         boolean jourDejaPasse = false;
         Label lab;
+        double nbCreneau = 0;
+        double nbCreneauPris = 0;
         
         for (j=0; j<=6;j++)
         {
@@ -128,6 +134,7 @@ public class FenFXML_mainController implements Initializable
         
                     if(i!=7)
                     {
+                        nbCreneau++;
                         lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00");
                         for(int k = 0; k<=lesReservations.size() - 1;k++)
                         {
@@ -137,6 +144,7 @@ public class FenFXML_mainController implements Initializable
                                 lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00 " + lesReservations.get(k).getRefAsso());
                                 lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));                                
                                 jourDejaPasse = true;
+                                nbCreneauPris++;
                             }
                             else if(jourDejaPasse == false)
                             {
@@ -152,8 +160,8 @@ public class FenFXML_mainController implements Initializable
                         java.util.Date today = calendar.getTime();
                         java.util.Date tomorrow = calendar.getTime();
                         
-                        simpleDateformat = new SimpleDateFormat("EEEE dd MMMM yyyy"); // the day of the week spelled out completely
-                        System.out.println("Format long : "+simpleDateformat.format(tomorrow));
+                        simpleDateformat = new SimpleDateFormat("EEEE dd-MM-yyyy"); // the day of the week spelled out completely
+                        
         
                         lab = new Label(simpleDateformat.format(tomorrow));
                         calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -170,6 +178,12 @@ public class FenFXML_mainController implements Initializable
         heure = 7;
         jour++;
         }
+        DecimalFormat df = new DecimalFormat("##.##");
+        System.out.println(nbCreneau + "\n" + nbCreneauPris);
+        double pourc = (nbCreneauPris/nbCreneau)*100;
+        System.out.println(pourc);
+        labCreneauRes.setText(String.valueOf(nbCreneau - nbCreneauPris));
+        labPourcPris.setText(String.valueOf(df.format(pourc)) + " %");
     }
     
     
