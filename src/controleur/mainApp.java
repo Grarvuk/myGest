@@ -81,7 +81,9 @@ public class mainApp extends Application {
             
             page.getChildren().get(6).setOnMouseClicked(ae ->{
                 dialogStage.close();
+                controleurMain.definirStats();
                 controleurMain.afficherPlanning(pSalle);
+                
             });
             
             System.out.println("Node : " + page.getChildren().get(6).toString());

@@ -66,6 +66,7 @@ public class FenFXML_mainController implements Initializable
         salle.getToggles().get(0).setSelected(true);
         afficherPlanning("A");
         definirStats();
+        affichageStats();
     }
     
     public void definirStats()
@@ -75,6 +76,30 @@ public class FenFXML_mainController implements Initializable
         stats.setNbreserA(tabNBsalles[0]);
         stats.setNbreserB(tabNBsalles[1]);
         stats.setNbreserC(tabNBsalles[2]);
+        
+        int lePlus = -1;
+        int indexLePlus = -1;
+        
+        for(int i = 0;i<=2;i++)
+        {
+            if(lePlus<=tabNBsalles[i])        
+            {
+                lePlus = tabNBsalles[i];
+                indexLePlus = i;
+            }
+        }
+        if(indexLePlus ==0)
+        {
+            labSallePlus.setText("A");
+        }
+        else if(indexLePlus ==1)
+        {
+            labSallePlus.setText("B");
+        }
+        if(indexLePlus ==2)
+        {
+            labSallePlus.setText("C");
+        }
         
         DecimalFormat df = new DecimalFormat("##.##");
         
@@ -100,6 +125,41 @@ public class FenFXML_mainController implements Initializable
         
         System.out.println("nb salle A : " + stats.getNbreserA() + "\npourcentage A : " + stats.getPourcA() +
                 "\nasso le plus présent A : " + stats.getAssoA() + "\nheure plus prise A : " + stats.getHeurePlusPriseA());
+    }
+    
+    public void affichageStats()
+    {
+        DecimalFormat df = new DecimalFormat("##.##");
+        String pSalleCochee = "";
+        for(int i = 0; i<=salle.getToggles().size()-1;i++)
+        {
+            if(salle.getToggles().get(i).isSelected() == true)
+            {
+                RadioButton chk = (RadioButton)salle.getToggles().get(i);
+                pSalleCochee = chk.getText();
+            }
+        }
+        if(pSalleCochee.equals("A"))
+        {
+            labAssoPresente.setText(stats.getAssoA());
+            labCreneauPris.setText(stats.getHeurePlusPriseA());
+            labCreneauRes.setText(String.valueOf(stats.getNbreserA()));
+            labPourcPris.setText(df.format(stats.getPourcA()));
+        }
+        else if(pSalleCochee.equals("B"))
+        {
+            labAssoPresente.setText(stats.getAssoB());
+            labCreneauPris.setText(stats.getHeurePlusPriseB());
+            labCreneauRes.setText(String.valueOf(stats.getNbreserB()));
+            labPourcPris.setText(df.format(stats.getPourcB()));
+        }
+        else if(pSalleCochee.equals("C"))
+        {
+            labAssoPresente.setText(stats.getAssoC());
+            labCreneauPris.setText(stats.getHeurePlusPriseC());
+            labCreneauRes.setText(String.valueOf(stats.getNbreserC()));
+            labPourcPris.setText(df.format(stats.getPourcC()));
+        }
     }
 
     public void setMainApp(mainApp pMainApp)
@@ -214,12 +274,6 @@ public class FenFXML_mainController implements Initializable
         heure = 7;
         jour++;
         }
-        /*DecimalFormat df = new DecimalFormat("##.##");
-        double pourc = (nbCreneauPris/nbCreneau)*100;
-        System.out.println(pourc);
-        labCreneauRes.setText(String.valueOf(nbCreneau - nbCreneauPris));
-        labPourcPris.setText(String.valueOf(df.format(pourc)) + " %");*/
+        affichageStats();
     }
-    
-    
 }
