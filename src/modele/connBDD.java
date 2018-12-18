@@ -225,4 +225,147 @@ public class connBDD
 	} 
     }
     
+    // PARTIE STATS
+    ////////////////////////////////
+    ////////////////////////////////
+    // PARTIE STATS
+    
+    public static int[] getNBsalle()
+    {
+        Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	String pilote = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/gymnase";	
+        
+        int[] tabNBsalles = new int[3];
+        
+	try
+	{
+		Class.forName(pilote);
+		conn = DriverManager.getConnection(url,"root","");
+		stmt = (Statement) conn.createStatement();			            
+		rs = stmt.executeQuery("SELECT refSalle, COUNT(*) nb FROM reservation GROUP BY refSalle ORDER BY refSalle");	
+                int i = 0;
+                int nbSalle;
+                
+		while (rs.next())
+		{
+                    
+                    nbSalle = rs.getInt("nb");
+                    
+                    tabNBsalles[i] = nbSalle;
+                    i++;
+		}           			            
+		rs.close();
+		stmt.close();
+		conn.close();
+                
+                return tabNBsalles;
+	}			        
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	} 
+        return tabNBsalles;
+    }
+    
+        public static String getAssoPlusPresente(String pSalle)
+    {
+        Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	String pilote = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/gymnase";	
+        
+        String asso = "Aucune association n'a réservée";
+        int lePlus = 0;
+        
+	try
+	{
+		Class.forName(pilote);
+		conn = DriverManager.getConnection(url,"root","");
+		stmt = (Statement) conn.createStatement();			            
+		rs = stmt.executeQuery("SELECT refAsso ,COUNT(*) nb FROM reservation WHERE refSalle = '" + pSalle + "' GROUP BY refAsso");	
+                
+		while (rs.next())
+		{
+                    if(lePlus < rs.getInt("nb"))
+                    {
+                        lePlus = rs.getInt("nb");
+                        asso = rs.getString("refAsso");
+                    }
+		}           			            
+		rs.close();
+		stmt.close();
+		conn.close();
+                
+                return asso;
+	}			        
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	} 
+        return asso;
+    }
+    
+            public static String getHeurePlusPrise(String pSalle)
+    {
+        Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	String pilote = "org.gjt.mm.mysql.Driver";
+	String url = "jdbc:mysql://localhost/gymnase";	
+        
+        String heure = "Aucune réservation";
+        int lePlus = 0;
+        
+	try
+	{
+		Class.forName(pilote);
+		conn = DriverManager.getConnection(url,"root","");
+		stmt = (Statement) conn.createStatement();			            
+		rs = stmt.executeQuery("SELECT heure, COUNT(*) nb FROM reservation WHERE refSalle = '"+pSalle+"' GROUP BY heure");	
+                
+		while (rs.next())
+		{
+                    if(lePlus < rs.getInt("nb"))
+                    {
+                        lePlus = rs.getInt("nb");
+                        heure = rs.getString("heure");
+                    }
+		}           			            
+		rs.close();
+		stmt.close();
+		conn.close();
+                
+                String[] parts = heure.split("-", 3);
+                
+                return parts[0];
+	}			        
+	catch (SQLException E)
+	{
+            System.out.println("SQLException: " + E.getMessage());
+            System.out.println("SQLState:   " + E.getSQLState());
+            System.out.println("VendorError:  " + E.getErrorCode());
+	}
+	catch (ClassNotFoundException e)
+	{
+            System.out.println("ERREUR Driver " + e.getMessage());
+	} 
+        return heure;
+    }
+        
 }

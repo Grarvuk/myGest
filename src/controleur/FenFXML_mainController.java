@@ -32,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import modele.Association;
 import modele.Reservation;
+import modele.Statistique;
 import modele.connBDD;
 /**
  * FXML Controller class
@@ -43,6 +44,8 @@ public class FenFXML_mainController implements Initializable
     
     private ObservableList<Reservation> lesReservations = FXCollections.observableArrayList();
     private mainApp MainApp;
+    private Statistique stats = new Statistique();
+    private double nbCreneau = 0;
     
     @FXML
     GridPane paneAgenda;
@@ -62,6 +65,41 @@ public class FenFXML_mainController implements Initializable
     {
         salle.getToggles().get(0).setSelected(true);
         afficherPlanning("A");
+        definirStats();
+    }
+    
+    public void definirStats()
+    {
+        int[] tabNBsalles = new int[3];
+        tabNBsalles = connBDD.getNBsalle();
+        stats.setNbreserA(tabNBsalles[0]);
+        stats.setNbreserB(tabNBsalles[1]);
+        stats.setNbreserC(tabNBsalles[2]);
+        
+        DecimalFormat df = new DecimalFormat("##.##");
+        
+        double val = (double) tabNBsalles[0]; 
+        double pourc = (val/nbCreneau)*100;
+        stats.setPourcA(pourc);
+        
+        val = (double) tabNBsalles[1];
+        pourc = (val/nbCreneau)*100;
+        stats.setPourcB(pourc);
+        
+        val = (double) tabNBsalles[2];
+        pourc = (val/nbCreneau)*100;
+        stats.setPourcC(pourc);
+        
+        stats.setAssoA(connBDD.getAssoPlusPresente("A"));
+        stats.setAssoB(connBDD.getAssoPlusPresente("B"));
+        stats.setAssoC(connBDD.getAssoPlusPresente("C"));
+        
+        stats.setHeurePlusPriseA(connBDD.getHeurePlusPrise("A"));
+        stats.setHeurePlusPriseB(connBDD.getHeurePlusPrise("B"));
+        stats.setHeurePlusPriseC(connBDD.getHeurePlusPrise("C"));
+        
+        System.out.println("nb salle A : " + stats.getNbreserA() + "\npourcentage A : " + stats.getPourcA() +
+                "\nasso le plus présent A : " + stats.getAssoA() + "\nheure plus prise A : " + stats.getHeurePlusPriseA());
     }
 
     public void setMainApp(mainApp pMainApp)
@@ -124,8 +162,7 @@ public class FenFXML_mainController implements Initializable
         int noLab = 0;
         boolean jourDejaPasse = false;
         Label lab;
-        double nbCreneau = 0;
-        double nbCreneauPris = 0;
+        
         
         for (j=0; j<=6;j++)
         {
@@ -144,7 +181,6 @@ public class FenFXML_mainController implements Initializable
                                 lab = new Label(String.valueOf(heure) + "h00 - " + String.valueOf(heure + 1) + "h00 " + lesReservations.get(k).getRefAsso());
                                 lab.setBackground(new Background(new BackgroundFill(Color.valueOf("#CCCCCC"), CornerRadii.EMPTY, Insets.EMPTY)));                                
                                 jourDejaPasse = true;
-                                nbCreneauPris++;
                             }
                             else if(jourDejaPasse == false)
                             {
@@ -178,12 +214,11 @@ public class FenFXML_mainController implements Initializable
         heure = 7;
         jour++;
         }
-        DecimalFormat df = new DecimalFormat("##.##");
-        System.out.println(nbCreneau + "\n" + nbCreneauPris);
+        /*DecimalFormat df = new DecimalFormat("##.##");
         double pourc = (nbCreneauPris/nbCreneau)*100;
         System.out.println(pourc);
         labCreneauRes.setText(String.valueOf(nbCreneau - nbCreneauPris));
-        labPourcPris.setText(String.valueOf(df.format(pourc)) + " %");
+        labPourcPris.setText(String.valueOf(df.format(pourc)) + " %");*/
     }
     
     
