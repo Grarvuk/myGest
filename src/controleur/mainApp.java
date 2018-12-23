@@ -88,7 +88,7 @@ public class mainApp extends Application {
             
             System.out.println("Node : " + page.getChildren().get(6).toString());
             
-            dialogStage.setTitle("Fen");
+            dialogStage.setTitle("Réservation");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
